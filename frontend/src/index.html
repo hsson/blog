@@ -5,10 +5,51 @@
   <title>Frontend</title>
   <base href="/">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Import jQuery before materialize.js -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 </head>
 <body>
-  <app-root>Loading...</app-root>
+  <header>
+    <div class ="parallax-container valign-wrapper">
+      <div class="container">
+        <div class="row white-text center">
+          <div id="landing-text" class="col s12">
+            <h1 class="header light hide-on-small-only">blog.hakansson.xyz</h1>
+            <h3 class="header light hide-on-med-and-up">blog.hakansson.xyz</h3>
+            <h5 class="header light">Where I write about my adventures in software development</h5>
+          </div>
+        </div>
+      </div>
+      <div class="parallax"><img src="http://hakansson.xyz/img/bkg.jpg"></div>
+    </div>
+  </div>
+  <div class="container">
+    <app-root>
+      <div class="center">
+        <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </app-root>
+  </div>
+  <script>
+    $(document).ready(function(){
+      $('.parallax').parallax();
+    });
+  </script>
 </body>
 </html>
