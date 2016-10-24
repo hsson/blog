@@ -7,6 +7,7 @@ import { MaterializeDirective } from 'angular2-materialize';
 import { AppComponent } from './app.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { BlogComponent } from './blog/blog.component';
+import { PostService } from './post.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { BlogComponent } from './blog/blog.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

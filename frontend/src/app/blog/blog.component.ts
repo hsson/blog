@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BlogPost } from '../shared/blogPost';
-
-const POSTS: BlogPost[] = [
-  { id: 1, postDate: 1477336203000, title: "Hello world!", body: "I am the *body* of this post!"},
-  { id: 2, postDate: 1477336203000, title: "Another post", body: "I am yet another post body!"}
-]
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-blog',
@@ -15,11 +11,24 @@ const POSTS: BlogPost[] = [
 export class BlogComponent implements OnInit {
 
   title = "Blog posts";
-  posts = POSTS;
+  posts: BlogPost[];
 
-  constructor() { }
+  constructor(
+    private postService: PostService
+  ) {  }
+
+  debugPosts(): void {
+    console.log(this.posts);
+  }
+
+  getPosts(): void {
+    this.postService
+        .getPosts()
+        .then(response => this.posts = response);
+  }
 
   ngOnInit() {
+    this.getPosts();
   }
 
 }

@@ -3,12 +3,29 @@ package backend
 import (
   "fmt"
   "net/http"
+  "encoding/json"
 )
 
-func init() {
-  http.HandleFunc("/api/", getIndex)
+type Post struct {
+  Id        int     `json:"id"`
+  PostDate  int     `json:"postDate"`
+  Title     string  `json:"title"`
+  Body      string  `json:"body"`
 }
 
-func getIndex(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprintln(w, "Hello world!")
+var posts = []Post {
+  {1, 1477336203000, "Hello World! 2", "I am a body"},
+  {2, 1477336203000, "Hello World! 2", "I am a body"},
+}
+
+func init() {
+  http.HandleFunc("/api/posts", getPosts)
+}
+
+func getPosts(w http.ResponseWriter, r *http.Request) {
+  enc := json.NewEncoder(w)
+  err := enc.Encode(posts)
+  if (err != nil) {
+    fmt.Fprintln(w, "Something went wrong")
+  }
 }
