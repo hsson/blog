@@ -5,11 +5,15 @@ import { HttpModule } from '@angular/http';
 import { MaterializeDirective } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
+import { BlogPostComponent } from './blog-post/blog-post.component';
+import { BlogComponent } from './blog/blog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MaterializeDirective
+    MaterializeDirective,
+    BlogPostComponent,
+    BlogComponent
   ],
   imports: [
     BrowserModule,
