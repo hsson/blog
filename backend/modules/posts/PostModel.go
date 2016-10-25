@@ -32,7 +32,7 @@ func (p *Post) save(c context.Context) error {
 }
 
 func getPosts(c context.Context) ([]Post, error) {
-  q := datastore.NewQuery("blog_post").Order("post_date")
+  q := datastore.NewQuery("blog_post").Order("-post_date")
 
   var posts []Post
   keys, err := q.GetAll(c, &posts)
