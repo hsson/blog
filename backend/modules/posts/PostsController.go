@@ -7,16 +7,9 @@ import (
   "google.golang.org/appengine/log"
 )
 
-type Post struct {
-  Id        int     `json:"id"`
-  PostDate  int     `json:"postDate"`
-  Title     string  `json:"title"`
-  Body      string  `json:"body"`
-}
-
 var posts = []Post {
-  {1, 1477336203000, "Hello World! 2", "I am a body"},
-  {2, 1477336203000, "Hello World! 2", "I am a body"},
+  {1, 1477336203000, "Hello World!", "I am a the first post"},
+  {2, 1477336203001, "Hello World! 2", "I am a body"},
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
