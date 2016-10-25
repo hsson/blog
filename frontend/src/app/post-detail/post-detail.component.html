@@ -1,0 +1,7 @@
+<br />
+<div class="right-align">
+  <a class="waves-effect waves-light btn red" (click)="goToHome()"><i class="material-icons left">list</i>Back to blog</a>
+</div>
+<div *ngIf="post">
+  <app-blog-post [post]="post"></app-blog-post>
+</div>

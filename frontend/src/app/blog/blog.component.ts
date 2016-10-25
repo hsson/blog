@@ -17,10 +17,6 @@ export class BlogComponent implements OnInit {
     private postService: PostService
   ) {  }
 
-  debugPosts(): void {
-    console.log(this.posts);
-  }
-
   getPosts(): void {
     this.postService
         .getPosts()

@@ -1,3 +1,7 @@
 :host >>> img {
   max-width: 100%;
 }
+
+:host >>> .post-title {
+  cursor: pointer;
+}

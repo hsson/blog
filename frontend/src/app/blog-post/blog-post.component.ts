@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BlogPost } from '../shared/blogPost';
 
@@ -12,9 +13,16 @@ export class BlogPostComponent implements OnInit {
   @Input()
   post: BlogPost;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  goToDetail(post: BlogPost): void {
+    let link = ['/post', post.id];
+    this.router.navigate(link);
   }
 
 }

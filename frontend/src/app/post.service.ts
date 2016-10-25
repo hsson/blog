@@ -19,6 +19,11 @@ export class PostService {
       .catch(this.handleError);
   }
 
+  getPost(id: number): Promise<BlogPost> {
+    return this.getPosts()
+      .then(posts => posts.find(post => post.id === id));
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);

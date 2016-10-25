@@ -3,23 +3,36 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterializeDirective } from 'angular2-materialize';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { BlogComponent } from './blog/blog.component';
 import { PostService } from './post.service';
+import { PostDetailComponent } from './post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MaterializeDirective,
     BlogPostComponent,
-    BlogComponent
+    BlogComponent,
+    PostDetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        component: BlogComponent
+      },
+      {
+        path: 'post/:id',
+        component: PostDetailComponent
+      }
+    ])
   ],
   providers: [PostService],
   bootstrap: [AppComponent]

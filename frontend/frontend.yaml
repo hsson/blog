@@ -9,6 +9,9 @@ handlers:
   - url: /
     static_files: dist/index.html # Will be generated after running 'ng build -prod'
     upload: dist/index.html
+  - url: /post/.*
+    static_files: dist/index.html
+    upload: dist/index.html
   - url: /
     static_dir: dist
 
