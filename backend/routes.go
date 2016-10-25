@@ -17,6 +17,7 @@ type Routes []Route
 
 var routes = Routes{
 	// Posts
-	Route{"GetPosts", "GET", "/api/posts", false, posts.Index},
+	Route{"IndexPosts", "GET", "/api/posts", false, posts.Index},
+	Route{"GetPost", "GET", "/api/posts/{id:[0-9]+}", false, posts.Get},
 	//Route{"PopulateDummyData", "GET", "/api/posts/dummy", false, posts.PopulateDummyData},
 }

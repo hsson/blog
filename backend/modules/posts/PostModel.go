@@ -31,6 +31,20 @@ func (p *Post) save(c context.Context) error {
   return nil
 }
 
+func getPost(c context.Context, id int64) (*Post, error) {
+  var post Post
+  post.Id = id
+
+  key := post.key(c)
+  err := datastore.Get(c, key, &post)
+  if err != nil {
+    return nil, err
+  }
+
+  post.Id = key.IntID()
+  return &post, nil
+}
+
 func getPosts(c context.Context) ([]Post, error) {
   q := datastore.NewQuery("blog_post").Order("-post_date")
 
