@@ -20,8 +20,10 @@ export class PostService {
   }
 
   getPost(id: number): Promise<BlogPost> {
-    return this.getPosts()
-      .then(posts => posts.find(post => post.id === id));
+    return this.http.get(`${this.postsUrl}/${id}`)
+      .toPromise()
+      .then(response => response.json() as BlogPost)
+      .catch(this.handleError)
   }
 
   private handleError(error: any): Promise<any> {
