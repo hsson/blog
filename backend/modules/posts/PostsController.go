@@ -2,8 +2,9 @@ package posts
 
 import (
   "net/http"
-  "fmt"
   "encoding/json"
+  "google.golang.org/appengine"
+  "google.golang.org/appengine/log"
 )
 
 type Post struct {
@@ -19,9 +20,10 @@ var posts = []Post {
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
+  ctx := appengine.NewContext(r)
   enc := json.NewEncoder(w)
   err := enc.Encode(posts)
   if (err != nil) {
-    fmt.Fprintln(w, "Something went wrong")
+    log.Errorf(ctx, "Couldn't encode posts to json")
   }
 }
