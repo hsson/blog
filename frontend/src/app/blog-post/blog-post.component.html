@@ -6,8 +6,6 @@
     <p class="grey-text">
       Posted on: {{post.postDate | date:'yyyy-MM-dd'}}
     </p>
-    <p>
-      {{post.body}}
-    </p>
+    <div [innerHTML]="post.body"></div>
   </div>
 </div>
