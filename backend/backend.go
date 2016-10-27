@@ -1,10 +1,10 @@
 package backend
 
 import (
-  "net/http"
+	"net/http"
 )
 
-func init() {
-  r := NewRouter()
-  http.Handle("/", r)
+func Run() {
+	r := NewRouter()
+	http.Handle("/", r)
 }

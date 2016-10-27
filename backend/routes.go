@@ -2,7 +2,8 @@ package backend
 
 import (
 	"net/http"
-	"modules/posts"
+
+	"github.com/hsson/blog/backend/modules/posts"
 )
 
 type Route struct {
@@ -18,6 +19,6 @@ type Routes []Route
 var routes = Routes{
 	// Posts
 	Route{"IndexPosts", "GET", "/api/posts", false, posts.Index},
-	Route{"GetPost", "GET", "/api/posts/{id:[0-9]+}", false, posts.Get},
-	//Route{"PopulateDummyData", "GET", "/api/posts/dummy", false, posts.PopulateDummyData},
+	Route{"PopulateDummyData", "GET", "/api/posts/generate", false, posts.Generate},
+	Route{"GetPost", "GET", "/api/posts/{slug}", false, posts.Get},
 }
