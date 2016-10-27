@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-content">
+    <form>
+      <div class="row">
+        <div class="input-field col s12">
+          <input [(ngModel)]="model.title" placeholder="Enter post title..." id="post_title" name="post_title" type="text" required>
+          <label for="post_title">Post Title</label>
+        </div>
+        {{model.title}}
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea [(ngModel)]="model.body" id="post_body" name="post_body" class="materialize-textarea"  required></textarea>
+          <label for="post_body">Post Content</label>
+        </div>
+      </div>
+      {{model.body}}
+      <button type="submit" class="btn red text-white">Submit</button>
+    </form>
+  </div>
+</div>

@@ -11,6 +11,7 @@ import { BlogComponent } from './blog/blog.component';
 import { PostService } from './post.service';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { AdminIndexComponent } from './admin-index/admin-index.component';
+import { AdminNewPostComponent } from './admin-new-post/admin-new-post.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AdminIndexComponent } from './admin-index/admin-index.component';
     BlogPostComponent,
     BlogComponent,
     PostDetailComponent,
-    AdminIndexComponent
+    AdminIndexComponent,
+    AdminNewPostComponent
   ],
   imports: [
     BrowserModule,
