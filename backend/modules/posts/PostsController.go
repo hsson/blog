@@ -96,7 +96,13 @@ func New(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Could not save post to database", http.StatusInternalServerError)
 		return
 	}
-	fmt.Fprintln(w, "200 OK")
+
+	enc := json.NewEncoder(w)
+	err = enc.Encode(p)
+	if err != nil {
+		log.Errorf(ctx, "Couldn't encode post to json")
+		http.Error(w, "Couldn't encode post to json", http.StatusInternalServerError)
+	}
 }
 
 func Edit(w http.ResponseWriter, r *http.Request) {
