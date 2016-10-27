@@ -2,12 +2,15 @@ package posts
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
+	"github.com/Machiel/slugify"
 	"github.com/gorilla/mux"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
+	"google.golang.org/appengine/user"
 )
 
 var dummyPosts = []Post{
@@ -54,4 +57,43 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		log.Errorf(ctx, "Couldn't encode post to json")
 		http.Error(w, "Couldn't encode post to json", http.StatusInternalServerError)
 	}
+}
+
+func New(w http.ResponseWriter, r *http.Request) {
+	ctx := appengine.NewContext(r)
+	u := user.Current(ctx)
+
+	if u == nil || !u.Admin {
+		log.Warningf(ctx, "Unauthorized API attempt")
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	decoder := json.NewDecoder(r.Body)
+	var p Post
+	err := decoder.Decode(&p)
+	if err != nil {
+		log.Errorf(ctx, "Could not decode new post")
+		http.Error(w, "Couldn't decode new post", http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+	if p.Title == "" || p.Body == "" {
+		http.Error(w, "No title or body specified", http.StatusBadRequest)
+		return
+	}
+	var nullTime time.Time
+	if p.PostDate == nullTime {
+		p.PostDate = time.Now()
+	}
+	p.Slug = slugify.Slugify(p.Title)
+
+	// Input is okay, now save
+	err = p.save(ctx)
+	if err != nil {
+		log.Errorf(ctx, "Could not save post to database")
+		http.Error(w, "Could not save post to database", http.StatusInternalServerError)
+		return
+	}
+	fmt.Fprintln(w, "200 OK")
 }
