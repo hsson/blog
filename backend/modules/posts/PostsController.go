@@ -9,6 +9,7 @@ import (
 	"github.com/Machiel/slugify"
 	"github.com/gorilla/mux"
 	"google.golang.org/appengine"
+	"google.golang.org/appengine/datastore"
 	"google.golang.org/appengine/log"
 	"google.golang.org/appengine/user"
 )
@@ -90,6 +91,49 @@ func New(w http.ResponseWriter, r *http.Request) {
 
 	// Input is okay, now save
 	err = p.save(ctx)
+	if err != nil {
+		log.Errorf(ctx, "Could not save post to database")
+		http.Error(w, "Could not save post to database", http.StatusInternalServerError)
+		return
+	}
+	fmt.Fprintln(w, "200 OK")
+}
+
+func Edit(w http.ResponseWriter, r *http.Request) {
+	ctx := appengine.NewContext(r)
+	u := user.Current(ctx)
+
+	if u == nil || !u.Admin {
+		log.Warningf(ctx, "Unauthorized API attempt")
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	postSlug := mux.Vars(r)["slug"]
+	var oldPost Post
+
+	err := datastore.Get(ctx, keyToString(ctx, postSlug), &oldPost)
+	if err != nil {
+		log.Infof(ctx, "Couldn't find post in database")
+		http.Error(w, "Post does not exist", http.StatusBadRequest)
+		return
+	}
+
+	var newPost Post
+	err = json.NewDecoder(r.Body).Decode(&newPost)
+	if err != nil {
+		log.Errorf(ctx, "Could not decode post")
+		http.Error(w, "Couldn't decode post", http.StatusBadRequest)
+		return
+	}
+	oldPost.Slug = postSlug
+	if newPost.Title != "" {
+		oldPost.Title = newPost.Title
+	}
+	if newPost.Body != "" {
+		oldPost.Body = newPost.Body
+	}
+	err = oldPost.save(ctx)
 	if err != nil {
 		log.Errorf(ctx, "Could not save post to database")
 		http.Error(w, "Could not save post to database", http.StatusInternalServerError)

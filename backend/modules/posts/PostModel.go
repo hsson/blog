@@ -24,6 +24,10 @@ func (p *Post) key(c context.Context) *datastore.Key {
 	return datastore.NewKey(c, "blog_post", p.Slug, 0, nil)
 }
 
+func keyToString(c context.Context, s string) *datastore.Key {
+	return datastore.NewKey(c, "blog_post", s, 0, nil)
+}
+
 func (p *Post) save(c context.Context) error {
 	key, err := datastore.Put(c, p.key(c), p)
 	if err != nil {
