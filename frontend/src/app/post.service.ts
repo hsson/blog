@@ -19,8 +19,8 @@ export class PostService {
       .catch(this.handleError);
   }
 
-  getPost(id: number): Promise<BlogPost> {
-    return this.http.get(`${this.postsUrl}/${id}`)
+  getPost(slug: string): Promise<BlogPost> {
+    return this.http.get(`${this.postsUrl}/${slug}`)
       .toPromise()
       .then(response => response.json() as BlogPost)
       .catch(this.handleError)

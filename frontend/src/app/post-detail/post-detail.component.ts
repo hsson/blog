@@ -21,8 +21,8 @@ export class PostDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
-      let id = +params['id'];
-      this.postService.getPost(id)
+      let slug = params['slug'];
+      this.postService.getPost(slug)
         .then(post => this.post = post);
     });
   }

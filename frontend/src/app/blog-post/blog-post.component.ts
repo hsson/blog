@@ -21,7 +21,7 @@ export class BlogPostComponent implements OnInit {
   }
 
   goToDetail(post: BlogPost): void {
-    let link = ['/post', post.id];
+    let link = ['/post', post.slug];
     this.router.navigate(link);
   }
 

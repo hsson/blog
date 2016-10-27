@@ -29,7 +29,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
         component: BlogComponent
       },
       {
-        path: 'post/:id',
+        path: 'post/:slug',
         component: PostDetailComponent
       }
     ])

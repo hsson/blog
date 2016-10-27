@@ -1,5 +1,5 @@
 export class BlogPost {
-  id: number;
+  slug: string;
   postDate: number;
   title: string;
   body: string;
