@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { PostService } from '../post.service';
 import { BlogPost } from '../shared/blogPost';
@@ -16,15 +17,21 @@ export class PostDetailComponent implements OnInit {
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       let slug = params['slug'];
       this.postService.getPost(slug)
-        .then(post => this.post = post);
+        .then(post => this.setPost(post));
     });
+  }
+
+  setPost(newPost: BlogPost): void {
+    this.post = newPost;
+    this.titleService.setTitle(`${newPost.title} | blog.hakansson.xyz`);
   }
 
   goToHome(): void {
