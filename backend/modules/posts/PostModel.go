@@ -9,7 +9,7 @@ import (
 )
 
 type Post struct {
-	Slug     string    `json:"id" datastore:"post_slug"`
+	Slug     string    `json:"slug" datastore:"post_slug"`
 	PostDate time.Time `json:"postDate" datastore:"post_date"`
 	Title    string    `json:"title" datastore:"post_title"`
 	Body     string    `json:"body" datastore:"post_body"`
