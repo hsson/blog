@@ -5,5 +5,15 @@ runtime: go
 api_version: go1
 
 handlers:
+  - url: /api/admin
+    script: _go_app
+    login: admin
+    auth_fail_action: unauthorized
+
+  - url: /api/admin/.*
+    script: _go_app
+    login: admin
+    auth_fail_action: unauthorized
+
   - url: /.*
     script: _go_app

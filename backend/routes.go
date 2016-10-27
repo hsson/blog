@@ -3,6 +3,7 @@ package backend
 import (
 	"net/http"
 
+	"github.com/hsson/blog/backend/modules/admin"
 	"github.com/hsson/blog/backend/modules/posts"
 )
 
@@ -21,4 +22,7 @@ var routes = Routes{
 	Route{"IndexPosts", "GET", "/api/posts", false, posts.Index},
 	Route{"PopulateDummyData", "GET", "/api/posts/generate", false, posts.Generate},
 	Route{"GetPost", "GET", "/api/posts/{slug}", false, posts.Get},
+
+	// Admin
+	Route{"AdminIndex", "GET", "/api/admin", false, admin.Index},
 }
