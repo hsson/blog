@@ -1,61 +1,63 @@
 package posts
 
 import (
-  "golang.org/x/net/context"
-  "google.golang.org/appengine/datastore"
-  "time"
+	"time"
+
+	"github.com/Machiel/slugify"
+	"golang.org/x/net/context"
+	"google.golang.org/appengine/datastore"
 )
 
 type Post struct {
-  Id        int64         `json:"id" datastore:"-"`
-  PostDate  time.Time     `json:"postDate" datastore:"post_date"`
-  Title     string        `json:"title" datastore:"post_title"`
-  Body      string        `json:"body" datastore:"post_body"`
+	Slug     string    `json:"id" datastore:"post_slug"`
+	PostDate time.Time `json:"postDate" datastore:"post_date"`
+	Title    string    `json:"title" datastore:"post_title"`
+	Body     string    `json:"body" datastore:"post_body"`
 }
 
 func (p *Post) key(c context.Context) *datastore.Key {
-  if p.Id == 0 {
-    return datastore.NewIncompleteKey(c, "blog_post", nil)
-  }
+	if p.Slug == "" {
+		p.Slug = slugify.Slugify(p.Title)
+		return datastore.NewKey(c, "blog_post", p.Slug, 0, nil)
+	}
 
-  return datastore.NewKey(c, "blog_post", "", p.Id, nil)
+	return datastore.NewKey(c, "blog_post", p.Slug, 0, nil)
 }
 
 func (p *Post) save(c context.Context) error {
-  key, err := datastore.Put(c, p.key(c), p)
-  if err != nil {
-    return err
-  }
-
-  p.Id = key.IntID()
-  return nil
+	key, err := datastore.Put(c, p.key(c), p)
+	if err != nil {
+		return err
+	}
+	p.Slug = key.StringID()
+	return nil
 }
 
-func getPost(c context.Context, id int64) (*Post, error) {
-  var post Post
-  post.Id = id
+func getPost(c context.Context, slug string) (*Post, error) {
+	var post Post
+	post.Slug = slug
 
-  key := post.key(c)
-  err := datastore.Get(c, key, &post)
-  if err != nil {
-    return nil, err
-  }
+	key := post.key(c)
+	err := datastore.Get(c, key, &post)
+	if err != nil {
+		return nil, err
+	}
 
-  post.Id = key.IntID()
-  return &post, nil
+	post.Slug = key.StringID()
+	return &post, nil
 }
 
 func getPosts(c context.Context) ([]Post, error) {
-  q := datastore.NewQuery("blog_post").Order("-post_date")
+	q := datastore.NewQuery("blog_post").Order("-post_date")
 
-  var posts []Post
-  keys, err := q.GetAll(c, &posts)
-  if err != nil {
-    return nil, err
-  }
+	var posts []Post
+	keys, err := q.GetAll(c, &posts)
+	if err != nil {
+		return nil, err
+	}
 
-  for i := 0; i < len(posts); i++ {
-    posts[i].Id = keys[i].IntID()
-  }
-  return posts, nil
+	for i := 0; i < len(posts); i++ {
+		posts[i].Slug = keys[i].StringID()
+	}
+	return posts, nil
 }
