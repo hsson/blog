@@ -10,6 +10,7 @@ import { BlogPostComponent } from './blog-post/blog-post.component';
 import { BlogComponent } from './blog/blog.component';
 import { PostService } from './post.service';
 import { PostDetailComponent } from './post-detail/post-detail.component';
+import { AdminIndexComponent } from './admin-index/admin-index.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
     MaterializeDirective,
     BlogPostComponent,
     BlogComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    AdminIndexComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,10 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
       {
         path: 'post/:slug',
         component: PostDetailComponent
+      },
+      {
+        path: 'admin',
+        component: AdminIndexComponent
       }
     ])
   ],
