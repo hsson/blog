@@ -14,13 +14,13 @@ ng build
 ```
 Then it's ready to be tested:
 ```
-goapp serve dispatch.yaml frontend/frontend.yaml backend/backend.yaml
+goapp serve dispatch.yaml frontend/frontend.yaml backend/appengine/backend.yaml
 ```
 
 ### Testing the backend
 To only test the backend, you can run:
 ```
-goapp serve backend/backend.yaml
+goapp serve backend/appengine/backend.yaml
 ```
 
 ### Testing the frontend
@@ -39,7 +39,7 @@ ng build -prod
 ```
 Then deploy the two modules:
 ```
-goapp deploy frontend/frontend.yaml backend/backend.yaml
+goapp deploy frontend/frontend.yaml backend/appengine/backend.yaml
 ```
 Then update the routing/dispatch:
 ```
