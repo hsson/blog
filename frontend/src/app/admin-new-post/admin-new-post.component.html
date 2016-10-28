@@ -1,4 +1,4 @@
-<div class="card">
+<div *ngIf="!preview" class="card">
   <div class="card-content">
     <form>
       <div class="row">
@@ -17,3 +17,4 @@
     </form>
   </div>
 </div>
+<app-blog-post *ngIf="preview" [post]="model"></app-blog-post>

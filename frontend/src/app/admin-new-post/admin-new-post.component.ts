@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BlogPost } from '../shared/blogPost';
@@ -12,6 +12,9 @@ import { PostService } from '../post.service';
 export class AdminNewPostComponent implements OnInit {
 
   model = new BlogPost();
+
+  @Input()
+  preview: boolean;
 
   constructor(
     private postService: PostService,
