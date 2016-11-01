@@ -13,6 +13,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 import { AdminIndexComponent } from './admin-index/admin-index.component';
 import { AdminNewPostComponent } from './admin-new-post/admin-new-post.component';
 import { BlogListComponent } from './blog-list/blog-list.component';
+import { AdminEditPostComponent } from './admin-edit-post/admin-edit-post.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { BlogListComponent } from './blog-list/blog-list.component';
     PostDetailComponent,
     AdminIndexComponent,
     AdminNewPostComponent,
-    BlogListComponent
+    BlogListComponent,
+    AdminEditPostComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,10 @@ import { BlogListComponent } from './blog-list/blog-list.component';
       {
         path: 'admin',
         component: AdminIndexComponent
+      },
+      {
+        path: 'admin/edit/:slug',
+        component: AdminEditPostComponent
       }
     ])
   ],
