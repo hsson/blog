@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 import { BlogPost } from '../shared/blogPost';
 import { PostService } from '../post.service';
-import { Router } from '@angular/router';
+import { EditType } from '../admin-new-post/admin-new-post.component';
 
 const COMPONENT_TITLE = "Admin | blog.hakansson.xyz";
 
@@ -16,6 +17,8 @@ export class AdminIndexComponent implements OnInit {
 
   post = new BlogPost();
 
+  editType = EditType.NewPost;
+
   preview = false;
 
   constructor(
@@ -26,22 +29,6 @@ export class AdminIndexComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle(COMPONENT_TITLE);
-  }
-
-  createNewPost(): void {
-    if (!this.post.title || !this.post.body) {
-      return;
-    }
-
-    this.postService
-      .newPost(this.post)
-      .then(newPost => this.processPost(newPost));
-  }
-
-   processPost(post: BlogPost): void {
-    console.log(post);
-    let link = ["/post", post.slug];
-    this.router.navigate(link);
   }
 
 }
