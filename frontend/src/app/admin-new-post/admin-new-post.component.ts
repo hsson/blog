@@ -33,6 +33,17 @@ export class AdminNewPostComponent implements OnInit {
   submitPost(): void {
     if (this.editType == EditType.NewPost) {
       this.createNewPost();
+    } else if (this.editType == EditType.EditPost) {
+      this.editPost();
+    }
+  }
+
+  editPost(): void {
+    if (this.post.slug) {
+      this.postService
+        .editPost(this.post.slug, this.post)
+        .then(editedPost => this.processPost(editedPost));
+
     }
   }
 
@@ -43,10 +54,10 @@ export class AdminNewPostComponent implements OnInit {
 
     this.postService
       .newPost(this.post)
-      .then(newPost => this.processNewPost(newPost));
+      .then(newPost => this.processPost(newPost));
   }
 
-   processNewPost(post: BlogPost): void {
+   processPost(post: BlogPost): void {
     console.log(post);
     let link = ["/post", post.slug];
     this.router.navigate(link);

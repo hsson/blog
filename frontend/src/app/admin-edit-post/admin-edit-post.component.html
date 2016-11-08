@@ -1,3 +1,20 @@
-<p>
-  admin-edit-post works!
-</p>
+<div class="row">
+  <div class="col s12">
+    <div class="row valign-wrapper">
+      <div class="col s6">
+        <h4 class="header light">Edit post</h4>
+      </div>
+      <div class="col s6 right-align valign">
+        <div class="switch">
+          <label>
+            Preview: Off
+            <input type="checkbox" [(ngModel)]="preview">
+            <span class="lever"></span>
+            On
+          </label>
+        </div>
+      </div>
+    </div>
+    <app-admin-new-post *ngIf="post" [editType]="editType" [preview]="preview" [post]="post"></app-admin-new-post>
+  </div>
+</div>
