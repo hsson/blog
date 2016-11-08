@@ -3,18 +3,18 @@
     <form>
       <div class="row">
         <div class="input-field col s12">
-          <input [(ngModel)]="model.title" placeholder="Enter post title..." id="post_title" name="post_title" type="text" required>
+          <input [(ngModel)]="post.title" placeholder="Enter post title..." id="post_title" name="post_title" type="text" required>
           <label for="post_title">Post Title</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <textarea [(ngModel)]="model.body" id="post_body" name="post_body" class="materialize-textarea"  required></textarea>
+          <textarea [(ngModel)]="post.body" id="post_body" name="post_body" class="materialize-textarea"  required></textarea>
           <label for="post_body">Post Content</label>
         </div>
       </div>
-      <button (click)="createPost()" type="submit" class="btn red text-white">Submit</button>
+      <button (click)="postFunc" type="submit" class="btn red text-white">Submit</button>
     </form>
   </div>
 </div>
-<app-blog-post *ngIf="preview" [post]="model"></app-blog-post>
+<app-blog-post *ngIf="preview" [post]="post"></app-blog-post>
