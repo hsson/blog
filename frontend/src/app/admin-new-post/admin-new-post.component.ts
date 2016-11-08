@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BlogPost } from '../shared/blogPost';
@@ -11,10 +11,14 @@ import { PostService } from '../post.service';
 })
 export class AdminNewPostComponent implements OnInit {
 
-  model = new BlogPost();
-
   @Input()
   preview: boolean;
+
+  @Input()
+  post: BlogPost;
+
+  @Input()
+  postFunc: Function;
 
   constructor(
     private postService: PostService,
@@ -24,19 +28,7 @@ export class AdminNewPostComponent implements OnInit {
   ngOnInit() {
   }
 
-  createPost(): void {
-    if (!this.model.title || !this.model.body) {
-      return;
-    }
-
-    this.postService
-      .newPost(this.model)
-      .then(newPost => this.processPost(newPost));
-  }
-
-  processPost(post: BlogPost): void {
-    console.log(post);
-    let link = ["/post", post.slug];
-    this.router.navigate(link);
+  getPost(): BlogPost {
+    return this.post;
   }
 }
