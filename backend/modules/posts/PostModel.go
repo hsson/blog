@@ -9,10 +9,11 @@ import (
 )
 
 type Post struct {
-	Slug     string    `json:"slug" datastore:"-"`
-	PostDate time.Time `json:"postDate" datastore:"post_date"`
-	Title    string    `json:"title" datastore:"post_title"`
-	Body     string    `json:"body" datastore:"post_body"`
+	Slug      string    `json:"slug" datastore:"-"`
+	PostDate  time.Time `json:"postDate" datastore:"post_date"`
+	Title     string    `json:"title" datastore:"post_title"`
+	Body      string    `json:"body" datastore:"post_body"`
+	Published bool      `json:"published" datastore:"post_published"`
 }
 
 func (p *Post) key(c context.Context) *datastore.Key {

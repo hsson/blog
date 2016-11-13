@@ -3,4 +3,5 @@ export class BlogPost {
   postDate: number;
   title: string;
   body: string;
+  published: boolean;
 }

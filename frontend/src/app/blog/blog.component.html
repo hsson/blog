@@ -1,8 +1,8 @@
 <h2 class="header light">
-  {{title}}
+    {{title}}
 </h2>
 <div class="row" *ngFor="let post of posts">
-  <div class="col s12">
-    <app-blog-post [post]="post"></app-blog-post>
-  </div>
+    <div *ngIf="post.published" class="col s12">
+        <app-blog-post [post]="post"></app-blog-post>
+    </div>
 </div>

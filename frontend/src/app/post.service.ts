@@ -31,7 +31,7 @@ export class PostService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.newPostUrl, { "title":post.title, "body":post.body }, options)
+    return this.http.post(this.newPostUrl, { "title":post.title, "body":post.body, "published":post.published }, options)
       .toPromise()
       .then(response => response.json() as BlogPost)
       .catch(this.handleError);
@@ -40,10 +40,9 @@ export class PostService {
   editPost(slug: string, post: BlogPost): Promise<BlogPost> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-
-    return this.http.put(`${this.newPostUrl}/${slug}`, { "title":post.title, "body":post.body }, options)
+    return this.http.put(`${this.newPostUrl}/${slug}`, { "title":post.title, "body":post.body, "published":post.published }, options)
       .toPromise()
-      .then(Response => Response.json() as BlogPost)
+      .then(response => response.json() as BlogPost)
       .catch(this.handleError);
   }
 

@@ -2,7 +2,6 @@ package posts
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -15,8 +14,8 @@ import (
 )
 
 var dummyPosts = []Post{
-	{"hello-world", time.Date(2016, time.October, 24, 18, 31, 01, 0, time.Local), "Hello World!", "I am a the first post"},
-	{"hello-world-2", time.Date(2015, time.June, 3, 15, 21, 07, 0, time.Local), "Hello World! 2", "I am a body"},
+	{"hello-world", time.Date(2016, time.October, 24, 18, 31, 01, 0, time.Local), "Hello World!", "I am a the first post", true},
+	{"hello-world-2", time.Date(2015, time.June, 3, 15, 21, 07, 0, time.Local), "Hello World! 2", "I am a body", true},
 }
 
 func Generate(w http.ResponseWriter, r *http.Request) {
@@ -139,11 +138,17 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 	if newPost.Body != "" {
 		oldPost.Body = newPost.Body
 	}
+	oldPost.Published = newPost.Published
 	err = oldPost.save(ctx)
 	if err != nil {
 		log.Errorf(ctx, "Could not save post to database")
 		http.Error(w, "Could not save post to database", http.StatusInternalServerError)
 		return
 	}
-	fmt.Fprintln(w, "200 OK")
+	enc := json.NewEncoder(w)
+	err = enc.Encode(oldPost)
+	if err != nil {
+		log.Errorf(ctx, "Couldn't encode post to json")
+		http.Error(w, "Couldn't encode post to json", http.StatusInternalServerError)
+	}
 }
