@@ -142,6 +142,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 	err = oldPost.save(ctx)
 	if err != nil {
 		log.Errorf(ctx, "Could not save post to database")
+		log.Errorf(ctx, err.Error())
 		http.Error(w, "Could not save post to database", http.StatusInternalServerError)
 		return
 	}
