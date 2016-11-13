@@ -14,7 +14,7 @@ export class AdminEditPostComponent implements OnInit {
 
   post: BlogPost;
 
-  editType = EditType.NewPost;
+  editType = EditType.EditPost;
 
   preview = false;
 
