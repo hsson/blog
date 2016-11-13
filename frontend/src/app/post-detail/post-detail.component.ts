@@ -30,6 +30,9 @@ export class PostDetailComponent implements OnInit {
   }
 
   setPost(newPost: BlogPost): void {
+    if (!newPost.published) {
+      this.goToHome();
+    }
     this.post = newPost;
     this.titleService.setTitle(`${newPost.title} | blog.hakansson.xyz`);
   }
