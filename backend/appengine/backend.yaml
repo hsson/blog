@@ -7,6 +7,8 @@ api_version: go1
 handlers:
   - url: /.well-known
     static_dir: well-known
+    http_headers:
+      Content-Type: text/plain
 
   - url: /api/admin
     script: _go_app
