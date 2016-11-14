@@ -4,5 +4,8 @@ dispatch:
   - url: "*/api/*"
     module: backend
 
+  - url: "*/.well-known/*"
+    module: backend
+
   - url: "*/*"
     module: default # The front-end

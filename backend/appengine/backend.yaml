@@ -5,6 +5,9 @@ runtime: go
 api_version: go1
 
 handlers:
+  - url: /.well-known
+    static_dir: well-known
+
   - url: /api/admin
     script: _go_app
     login: admin
